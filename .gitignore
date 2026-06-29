@@ -1,0 +1,38 @@
+.DS_Store
+
+# Local tooling and editor metadata
+.agents/
+.codex/
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node.js
+node_modules/
+npm-debug.log*
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Runtime-generated artifacts
+BillPic2Web/static/*.html
+DifyWordBridg/documents/*.docx
+Excel_Flask_Dify/Excel_flask_Service/data/*.xlsx
+DifyMarpFlask_PPT/marp-flask-service/data/*
+Mindmap-generate-assistant/markdown/*
+Mindmap-generate-assistant/static/html/*
+
+# Keep runtime directories in fresh clones
+!DifyMarpFlask_PPT/marp-flask-service/data/.gitkeep
+!Excel_Flask_Dify/Excel_flask_Service/data/.gitkeep
+!Mindmap-generate-assistant/markdown/.gitkeep
+!Mindmap-generate-assistant/static/html/.gitkeep

@@ -1,0 +1,533 @@
+app:
+  description: 把感兴趣的网页直接添加到notion的database中
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: Dify AI 应用：Save To Notion
+  use_icon_as_answer_icon: false
+kind: app
+version: 0.1.3
+workflow:
+  conversation_variables:
+  - description: ''
+    id: 10db5ce3-c1a4-41b7-a03b-8463eac32ef9
+    name: icon_url
+    selector: []
+    value: https://images.unsplash.com/photo-1ⅩXQs.png?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
+    value_type: string
+  - description: ''
+    id: ee2f2123-bb0b-4115-afb7-bd47872d5101
+    name: cover_image_url
+    selector: []
+    value: https://image.uisdc.com/wp-content/uploads/2024/11/ysbanner-202401107-2-1.jpg
+    value_type: string
+  environment_variables:
+  - description: ''
+    id: 17407729-75d7-4e0d-b10b-f283134588d4
+    name: Notion_connection
+    selector: []
+    value: ''
+    value_type: secret
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: tool
+      id: 1731215727341-source-1731215762093-target
+      source: '1731215727341'
+      sourceHandle: source
+      target: '1731215762093'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: tool
+        targetType: code
+      id: 1731215762093-source-1731215842406-target
+      source: '1731215762093'
+      sourceHandle: source
+      target: '1731215842406'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: llm
+      id: 1731215842406-source-1731219932025-target
+      source: '1731215842406'
+      sourceHandle: source
+      target: '1731219932025'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: code
+      id: 1731219932025-source-1731220225016-target
+      source: '1731219932025'
+      sourceHandle: source
+      target: '1731220225016'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: http-request
+      id: 1731220225016-source-1731220589185-target
+      source: '1731220225016'
+      sourceHandle: source
+      target: '1731220589185'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: answer
+      id: 1731220589185-source-answer-target
+      source: '1731220589185'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: code
+      id: 1731381205378-source-1731220225016-target
+      source: '1731381205378'
+      sourceHandle: source
+      target: '1731220225016'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: code
+      id: 1731215842406-source-1731381205378-target
+      source: '1731215842406'
+      sourceHandle: source
+      target: '1731381205378'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 64
+      id: '1731215727341'
+      position:
+        x: 50.957085547227166
+        y: 282
+      positionAbsolute:
+        x: 50.957085547227166
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        answer: '{{#1731219932025.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 118
+      id: answer
+      position:
+        x: 1698.4344766195713
+        y: 282
+      positionAbsolute:
+        x: 1698.4344766195713
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        desc: ''
+        provider_id: jina
+        provider_name: jina
+        provider_type: builtin
+        selected: false
+        title: 获取单页面
+        tool_configurations:
+          gather_all_images_at_the_end: 0
+          gather_all_links_at_the_end: 0
+          image_caption: 0
+          max_retries: 3
+          no_cache: 0
+          proxy_server: null
+          summary: 0
+          target_selector: null
+          wait_for_selector: null
+        tool_label: 获取单页面
+        tool_name: jina_reader
+        tool_parameters:
+          url:
+            type: mixed
+            value: '{{#sys.query#}}'
+        type: tool
+      height: 369
+      id: '1731215762093'
+      position:
+        x: 337.8342239138701
+        y: 282
+      positionAbsolute:
+        x: 337.8342239138701
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        code: "import json\n\ndef main(arg1: str) -> dict:\n    try:\n        # 解析\
+          \ JSON 数据\n        parsed_data = json.loads(arg1)\n        \n        # 检查\
+          \ \"data\" 是否存在且不是 None\n        if \"data\" in parsed_data and parsed_data[\"\
+          data\"] is not None:\n            # 获取 title 字段\n            title = parsed_data[\"\
+          data\"].get(\"title\", \"\")\n        else:\n            title = \"\"\n\
+          \        \n        # 返回结果\n        return {\"result\": title}\n    except\
+          \ json.JSONDecodeError:\n        # 如果 JSON 解码失败，返回空的结果\n        return {\"\
+          result\": \"\"}\n\n# 假设我们有一个 JSON 字符串作为输入\njson_string = '{\"data\": {\"\
+          title\": \"Example Title\"}}'\n\n# 调用 main 函数并打印结果\nprint(main(json_string))"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 清洗标题
+        type: code
+        variables:
+        - value_selector:
+          - '1731215762093'
+          - text
+          variable: arg1
+      height: 64
+      id: '1731215842406'
+      position:
+        x: 596.4192884245988
+        y: 282
+      positionAbsolute:
+        x: 596.4192884245988
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+            ---
+
+            文章内容：
+
+            {{#1731215842406.result#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gemma2:latest
+          provider: ollama
+        prompt_template:
+        - id: 3de1a1f3-d177-436f-a570-8669345ef2d1
+          role: system
+          text: "<instructions>\n你的任务是对提供的网页内容创建一份精炼的摘要。请依据以下指引完成任务：\n\n- 首先通读网页全文，准确把握其核心思想与重要信息。\n\
+            - 挑选出能够代表文章主旨的三个最关键点。\n- 使用自己的语言将上述关键点整合成一段连贯的文字，避免直接引用原文。\n- 确保该段文字表述流畅，逻辑清晰，并且不同要点间过渡自然。\n\
+            - 输出采用Markdown格式，具体如下：\n  - 标题之前留一空格，紧跟标题文本。\n  - 标题后直接开始撰写摘要，无需空行间隔。\n\
+            \  - 摘要应保持为一个完整的段落，避免分割。\n  - 不得采用任何形式的项目符号列表（无论是有序还是无序）。\n- 摘要需既简洁又详尽，足以全面反映原文的主要信息。\n\
+            - 输出仅限于标题及相应的单段落摘要，不得加入个人评论或其他额外说明。\n- 英文单词、数字以及表情符号等与中文间均需保留一个空格。\n-\
+            \ 注意，最终提交的内容中不应出现任何XML标签，只需符合Markdown格式的标题和正文部分。\n\n</instructions>\n\n\
+            <example>\n输入:\n新研究表明，每天喝咖啡可能有助于延长寿命。这项发表在《内科医学年鉴》上的研究追踪调查了超过50万名英国成年人，平均随访时间为7年。研究发现，与不喝咖啡的人相比，每天喝1-8杯咖啡的人死亡风险降低10-15%。这种保护作用似乎适用于各种咖啡，包括速溶、研磨和脱因咖啡。研究人员表示，咖啡含有许多生物活性化合物，可能有抗炎和抗氧化作用。不过他们也强调，这项研究只显示了相关性，还需要进一步研究来证实因果关系。专家建议，健康的成年人可以适度饮用咖啡，但孕妇和对咖啡因敏感的人应该限制摄入量。\n\
+             \n输出:\n每日 1-8 杯咖啡或可降低死亡风险\n \n新研究显示，适度饮用咖啡可能有助于延长寿命。这项大规模研究发现，每天喝1-8杯咖啡的人比不喝咖啡的人死亡风险低10-15%。这种保护作用似乎适用于各种类型的咖啡，可能与咖啡中的生物活性化合物有关。然而，研究人员强调这只是相关性，还需要进一步研究来确定因果关系。专家建议健康成年人可以适度饮用咖啡，但特定人群应该限制摄入。\n\
+            </example>\n"
+        selected: false
+        title: summary
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 119
+      id: '1731219932025'
+      position:
+        x: 888.0340177253088
+        y: 91.35063363900719
+      positionAbsolute:
+        x: 888.0340177253088
+        y: 91.35063363900719
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        code: "import json\nfrom datetime import datetime\n\ndef main(title: str,\
+          \ summary: str, url: str,image_url: str) -> dict:\n    try:\n        # 获取当前日期和时间\n\
+          \        current_date = datetime.now().isoformat()\n\n        # 检查必填字段是否为空\n\
+          \        if not title or not summary or not url:\n            return {\"\
+          error\": \"Title, summary, and URL are required fields.\"}\n\n        #\
+          \ 创建 JSON 数据\n        json_data = {\n            \"parent\": {\n       \
+          \         \"database_id\": \"10ae512981008095afa1f20e7864f471\"\n      \
+          \      },\n            \"properties\": {\n                \"网站名称\": {\n\
+          \                    \"title\": [\n                        {\n         \
+          \                   \"text\": {\n                                \"content\"\
+          : title\n                            }\n                        }\n    \
+          \                ]\n                },\n                \"收藏日期\": {\n  \
+          \                  \"date\": {\"start\": current_date}  # 使用具体的日期\n    \
+          \            },\n                \"内容摘要\": {\n                    \"rich_text\"\
+          : [\n                        {\n                            \"type\": \"\
+          text\",\n                            \"text\": {\n                     \
+          \           \"content\": summary\n                            }\n      \
+          \                  }\n                    ]\n                },\n      \
+          \          \"站点封面图\": {\n                   \"files\": [\n             \
+          \           {\n                            \"name\": \"Image\",\n      \
+          \                      \"type\":\"external\",\n                        \
+          \    \"external\": {\n                                \"url\": image_url\n\
+          \                            }\n                        }\n            \
+          \        ]\n                },  \n                \"URL\": {\n         \
+          \           \"url\": url\n                }\n            }\n        }\n\n\
+          \        # 返回包含 JSON 字符串的字典，支持非 ASCII 字符\n        return {\n           \
+          \ \"result\": json.dumps(json_data, ensure_ascii=False)\n        }\n\n \
+          \   except Exception as e:\n        # 捕获任何异常并返回错误信息\n        return {\"\
+          error\": f\"An error occurred: {str(e)}\"}"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 写入Notion
+        type: code
+        variables:
+        - value_selector:
+          - sys
+          - query
+          variable: url
+        - value_selector:
+          - '1731219932025'
+          - text
+          variable: summary
+        - value_selector:
+          - '1731215842406'
+          - result
+          variable: title
+        - value_selector:
+          - '1731381205378'
+          - result
+          variable: image_url
+      height: 64
+      id: '1731220225016'
+      position:
+        x: 1153.1111439924662
+        y: 282
+      positionAbsolute:
+        x: 1153.1111439924662
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        authorization:
+          config:
+            api_key: 'YOUR_API_KEY'
+            type: bearer
+          type: api-key
+        body:
+          data:
+          - id: key-value-159
+            key: ''
+            type: text
+            value: '{{#1731220225016.result#}}'
+          type: json
+        desc: ''
+        headers: 'Content-Type:application/json
+
+          Notion-Version:2022-06-28'
+        method: post
+        params: ''
+        selected: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求
+        type: http-request
+        url: https://api.notion.com/v1/pages
+        variables: []
+      height: 134
+      id: '1731220589185'
+      position:
+        x: 1405.898096697162
+        y: 282
+      positionAbsolute:
+        x: 1405.898096697162
+        y: 282
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        code: "import re\nfrom html.parser import HTMLParser\n\nclass ImageUrlParser(HTMLParser):\n\
+          \    def __init__(self, target_title):\n        super().__init__()\n   \
+          \     self.target_title = target_title.strip().lower()  # 将目标标题去空格并转换为小写以便比较\n\
+          \        self.image_url = None\n        self.found = False\n        self.in_target_section\
+          \ = False\n        self.in_content = False\n        self.content_tags =\
+          \ {'article', 'main', 'div'}\n        self.header_tags = {'h1', 'h2', 'h3',\
+          \ 'h4', 'h5', 'h6'}\n        self.images = []\n\n    def handle_starttag(self,\
+          \ tag, attrs):\n        if not self.found:\n            if tag in self.header_tags:\n\
+          \                # 检查标签内的文本是否匹配目标标题\n                self.check_header_tag(tag,\
+          \ attrs)\n            elif self.in_target_section and tag in self.content_tags:\n\
+          \                attrs_dict = dict(attrs)\n                if 'class' in\
+          \ attrs_dict:\n                    class_value = attrs_dict['class'].lower()\n\
+          \                    if any(x in class_value for x in ['content', 'article',\
+          \ 'post', 'main']):\n                        self.in_content = True\n  \
+          \          elif tag == 'img' and self.in_content:\n                attrs_dict\
+          \ = dict(attrs)\n                image_url = attrs_dict.get('data-src')\
+          \ or attrs_dict.get('src')\n                if image_url:\n            \
+          \        self.images.append(image_url)\n\n    def handle_data(self, data):\n\
+          \        if not self.found and self.in_target_section and self.target_title\
+          \ in data.lower().strip():\n            # 如果数据中包含目标标题，那么我们处于目标章节\n     \
+          \       self.in_target_section = True\n\n    def handle_endtag(self, tag):\n\
+          \        if tag in self.content_tags:\n            self.in_content = False\n\
+          \        elif tag in self.header_tags and self.in_target_section:\n    \
+          \        # 一旦离开目标标题的章节，重置 in_target_section 并停止解析\n            self.in_target_section\
+          \ = False\n            self.found = True\n\n    def check_header_tag(self,\
+          \ tag, attrs):\n        # 获取标签内的文本\n        data = self.get_starttag_text()\n\
+          \        if data and self.target_title in data.lower().strip():\n      \
+          \      # 如果标签内的文本匹配目标标题，设置 in_target_section 为 True\n            self.in_target_section\
+          \ = True\n\ndef extract_middle_image(html_content: str, target_title: str)\
+          \ -> str:\n    parser = ImageUrlParser(target_title)\n    parser.feed(html_content)\n\
+          \    \n    # 确保返回的图片链接是纯净的\n    if parser.images:\n        middle_index\
+          \ = len(parser.images) // 2\n        # 使用 strip 方法去除字符串两端的空白字符和其他指定字符\n\
+          \        return parser.images[middle_index].strip()  # 返回找到的图片链接中最中间的一个\n\
+          \    \n    markdown_image_pattern = r\"!\\[.*?\\]\\((https?://[^\\s]+)\\\
+          )\"\n    markdown_images = re.findall(markdown_image_pattern, html_content)\n\
+          \    if markdown_images:\n        middle_index = len(markdown_images) //\
+          \ 2\n        return markdown_images[middle_index].strip()\n\n    return\
+          \ \"No image found\"\n\ndef main(html_content: str, target_title: str) ->\
+          \ dict:\n    result = extract_middle_image(html_content, target_title)\n\
+          \    return {\"result\": result}\n\n# 示例 HTML 内容，用于测试\nhtml_content = \"\
+          \"\"\n<html>\n    <head><title>Example Page</title></head>\n    <body>\n\
+          \        <h1>Introduction</h1>\n        <div class='content'>\n        \
+          \    <p>这是一些文本。</p>\n            <img src=\"https://example.com/intro-image.jpg\"\
+          \ alt=\"Intro Image\">\n        </div>\n        <h2> 主要内容 </h2>\n      \
+          \  <div class='content'>\n            <p>这是主要内容。</p>\n            <img src=\"\
+          https://image.uisdc.com/wp-content/uploads/2024/11/ysbanner-202401112-2-1.jpg\"\
+          \ alt=\"Main Image\">\n            <img src=\"https://example.com/image2.jpg\"\
+          \ alt=\"Image 2\">\n            <img src=\"https://example.com/image3.jpg\"\
+          \ alt=\"Image 3\">\n        </div>\n        <h3> 其他内容 </h3>\n        <div\
+          \ class='content'>\n            <p>这是其他内容。</p>\n            <img src=\"\
+          https://example.com/other-image.jpg\" alt=\"Other Image\">\n        </div>\n\
+          \        [Markdown Image](https://example.com/markdown-image.jpg)\n    </body>\n\
+          </html>\n\"\"\"\n\n# 调用 main 函数并打印结果\noutput = main(html_content, \"主要内容\"\
+          )\nprint(output[\"result\"])  # 应该输出 'https://example.com/image2.jpg'"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 清洗图片链接
+        type: code
+        variables:
+        - value_selector:
+          - '1731215762093'
+          - text
+          variable: html_content
+        - value_selector:
+          - '1731215842406'
+          - result
+          variable: target_title
+      height: 64
+      id: '1731381205378'
+      position:
+        x: 875.3240599679093
+        y: 499.2909437188978
+      positionAbsolute:
+        x: 875.3240599679093
+        y: 499.2909437188978
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    viewport:
+      x: -115.28994549371669
+      y: 46.55337505496334
+      zoom: 0.4720708057827259

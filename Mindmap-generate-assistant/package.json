@@ -1,0 +1,7 @@
+{
+  "name": "mindmap-generate-assistant",
+  "private": true,
+  "dependencies": {
+    "markmap-cli": "0.18.12"
+  }
+}
